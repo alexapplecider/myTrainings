@@ -2,17 +2,28 @@ window.onload = function () {
 
   let mainInputVal = document.getElementById("main-input");
   let itemCount = 0;
-  let list = document.querySelector(".item-list");
+  let ol = document.querySelector(".item-list");
 
-  // Клик по кнопке ОК
+  let arrItems = [];
+  if (localStorage.getItem("todo") !== undefined) {
+    arrItems = JSON.parse(localStorage.getItem("todo")) || [];
+    outItems();
+    initButtons();
+  }
+
+  console.log(arrItems);
+  console.log(localStorage.getItem("todo"));
+
   document.getElementById("btn-ok").onclick = function () {
     if (mainInputVal.value === "") {
       mainInputVal.style.borderColor = "red";
       return;
     }
     mainInputVal.style.borderColor = "";
+
     addTask(mainInputVal.value);
     mainInputVal.value = "";
+    outItems();
     initButtons();
     checkCondition();
   }
@@ -45,20 +56,35 @@ window.onload = function () {
   }
 
   function addTask(text) {
-    let itemList = document.createElement("li");
-    itemList.classList.add("item");
-    // Остальные элементы айтема `
+    var temp = {};
+    temp.todo = text;
+    temp.check = false;
+    arrItems.push(temp);
+    localStorage.setItem("todo", JSON.stringify(arrItems));
+  }
+
+  function outItems() {
+    let fragment = document.createDocumentFragment();
+
+    for (let key in arrItems) {
+      itemCount++;
+      let itemList = document.createElement("li");
+      itemList.classList.add("item");
+      // Остальные элементы айтема и сам текст `
       itemList.innerHTML =
-            `<input type="checkbox" id="item-${itemCount}">
-            <label for="item-${itemCount}">${text}</label>
+        `<input type="checkbox" id="item-${itemCount}">
+            <label for="item-${itemCount}">${arrItems[key].todo}</label>
             <button id="btn-save">Сохр.</button>
             <div class="buttons">
               <button id="btn-delete">Удалить</button>
               <button id="btn-red">Ред.</button>
             </div>`;
-    list.insertAdjacentElement("beforeEnd", itemList);
-    itemCount++;
+      fragment.appendChild(itemList);
+    }
+    ol.innerHTML = '';
+    ol.appendChild(fragment);
   }
+
 
   function initButtons() {
     let items = document.querySelectorAll("li.item");
@@ -66,10 +92,11 @@ window.onload = function () {
       items[i].querySelector("#btn-delete").onclick = deleteItem;
       items[i].querySelector("#btn-red").onclick = redItem;
     }
-    
+
     function deleteItem() {
       this.parentElement.parentElement.remove();
     }
+
     function redItem() {
       let input = this.parentElement.parentElement.querySelector("input");
       let label = this.parentElement.parentElement.querySelector("label");

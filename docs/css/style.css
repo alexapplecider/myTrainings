@@ -48,9 +48,6 @@
   display: inline-block;
   vertical-align: top;
 }
-.item input{
-  /* width: 200px; */
-}
 .item button {
   display: none;
   margin-right: 5px;
@@ -58,6 +55,8 @@
 
 .item #btn-save {
   display: none;
+  margin-top: 8px;
+  width: 139px;
 }
 
 input {

@@ -24,7 +24,6 @@ window.onload = function () {
     mainInputVal.value = "";
     outItems();
     initButtons();
-    checkCondition();
   }
 
 
@@ -38,7 +37,7 @@ window.onload = function () {
   function checkCondition() {
     if (itemCount > 0) {
       let itemsInList = document.querySelectorAll("li.item > input[type='checkbox']");
-      
+
       for (let i = 0; i < itemCount; i++) {
 
         itemsInList[i].onclick = function () {
@@ -88,6 +87,7 @@ window.onload = function () {
     }
     ol.innerHTML = '';
     ol.appendChild(fragment);
+    checkCondition();    
   }
 
 

@@ -6,13 +6,19 @@
 }
 
 
-
+.container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 3%;
+}
 
 .todo-list {
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
   margin: 0 auto;
   margin-top: 10%;
-  padding: 15px;
+  padding: 0 3%;
   border: 1px solid black;
   border-radius: 20px;
   text-align: center;
@@ -38,6 +44,9 @@
 }
 .item-done {
   text-decoration: line-through;
+}
+.item > label {
+  word-wrap: break-word;
 }
 .item > .buttons {
   position: absolute;

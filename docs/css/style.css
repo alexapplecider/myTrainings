@@ -40,9 +40,6 @@
   border-top: 1px solid black;  
   text-align: left;
 }
-.item-done {
-  text-decoration: line-through;
-}
 .item > label {
   word-wrap: break-word;
 }
@@ -70,6 +67,10 @@ input {
   padding: 5px;
   outline: none;
 }
+
+input[type=checkbox]:checked + label {
+  text-decoration: line-through;
+} 
 
 button {
   font-size: 15px;

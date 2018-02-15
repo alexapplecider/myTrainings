@@ -40,15 +40,15 @@ window.onload = function () {
   // Вывод/обновление списка айтемов
   function outItems() {
     let fragment = document.createDocumentFragment();
-    let itemCount = 0;
+    let i = 0;
     // Формирование и заполнение айтема
     for (let key in arrItems) {
-      itemCount++;
+      i++;
       let itemList = document.createElement("li");
       itemList.classList.add("item");
       itemList.innerHTML =
-        `<input type="checkbox" id="item-${itemCount}">
-        <label for="item-${itemCount}">${arrItems[key].todo}</label>
+        `<input type="checkbox" id="item-${i}">
+        <label for="item-${i}">${arrItems[key].todo}</label>
         <button id="btn-save">Сохр.</button>
         <div class="buttons">
           <button id="btn-delete">Удалить</button>
@@ -58,25 +58,7 @@ window.onload = function () {
     }
     ol.innerHTML = '';
     ol.appendChild(fragment);
-    checkCondition();
     initButtons();
-  }
-  // Если есть айтемы - назначаем инпутам обработчики завершения
-  function checkCondition() {
-    let itemsInList = document.querySelectorAll("li.item > input[type='checkbox']");
-    for (let i = 0; i < itemCount; i++) {
-      itemsInList[i].onclick = function () {
-        this.setAttribute("checked", "checked");
-        let label = this.parentElement.querySelector("label");
-
-        if (this.click && this.hasAttribute("checked")) {
-          label.classList.toggle("item-done");
-        }
-        if (this.type === "text") {
-          label.classList.remove("item-done");
-        }
-      }
-    }
   }
   // Инициализация обработчиков кнопок существующих айтемов
   function initButtons() {
@@ -117,6 +99,5 @@ window.onload = function () {
     itemCount = 0;
     arrItems = [];
   }
-
 
 }

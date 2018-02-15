@@ -5,14 +5,13 @@ window.onload = function () {
   let ol = document.querySelector(".item-list");
 
   let arrItems = [];
+  
   if (localStorage.getItem("todo") !== undefined) {
     arrItems = JSON.parse(localStorage.getItem("todo")) || [];
     outItems();
     initButtons();
   }
 
-  console.log(arrItems);
-  console.log(localStorage.getItem("todo"));
 
   document.getElementById("btn-ok").onclick = function () {
     if (mainInputVal.value === "") {
@@ -28,15 +27,18 @@ window.onload = function () {
     checkCondition();
   }
 
+
   mainInputVal.onkeydown = function (event) {
     if (event.keyCode === 13) {
       document.getElementById("btn-ok").click();
     }
   }
 
+
   function checkCondition() {
     if (itemCount > 0) {
       let itemsInList = document.querySelectorAll("li.item > input[type='checkbox']");
+      
       for (let i = 0; i < itemCount; i++) {
 
         itemsInList[i].onclick = function () {
@@ -52,8 +54,10 @@ window.onload = function () {
         }
 
       }
+
     }
   }
+
 
   function addTask(text) {
     var temp = {};
@@ -62,6 +66,7 @@ window.onload = function () {
     arrItems.push(temp);
     localStorage.setItem("todo", JSON.stringify(arrItems));
   }
+
 
   function outItems() {
     let fragment = document.createDocumentFragment();
@@ -73,12 +78,12 @@ window.onload = function () {
       // Остальные элементы айтема и сам текст `
       itemList.innerHTML =
         `<input type="checkbox" id="item-${itemCount}">
-            <label for="item-${itemCount}">${arrItems[key].todo}</label>
-            <button id="btn-save">Сохр.</button>
-            <div class="buttons">
-              <button id="btn-delete">Удалить</button>
-              <button id="btn-red">Ред.</button>
-            </div>`;
+        <label for="item-${itemCount}">${arrItems[key].todo}</label>
+        <button id="btn-save">Сохр.</button>
+        <div class="buttons">
+          <button id="btn-delete">Удалить</button>
+          <button id="btn-red">Ред.</button>
+        </div>`;
       fragment.appendChild(itemList);
     }
     ol.innerHTML = '';
@@ -116,6 +121,11 @@ window.onload = function () {
       }
       input.setAttribute("type", "text");
     }
+  }
+
+  document.getElementById("btn-clear").onclick = function() {
+    localStorage.clear();
+    ol.innerHTML = "";
   }
 
 }

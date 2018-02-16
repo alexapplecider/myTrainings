@@ -43,11 +43,17 @@ window.onload = function () {
     let i = 0;
     // Формирование и заполнение айтема
     for (let key in arrItems) {
+      let checked = "";
+      if(arrItems[key].check) {
+        checked = " checked='checked'";
+      } else {
+        checked = "";
+      }
       i++;
       let itemList = document.createElement("li");
       itemList.classList.add("item");
       itemList.innerHTML =
-        `<input type="checkbox" id="item-${i}">
+        `<input type="checkbox" id="item-${i}" ${checked}>
         <label for="item-${i}">${arrItems[key].todo}</label>
         <button id="btn-save">Сохр.</button>
         <div class="buttons">
@@ -59,6 +65,7 @@ window.onload = function () {
     ol.innerHTML = '';
     ol.appendChild(fragment);
     initButtons();
+    checkCondition();
   }
   // Инициализация обработчиков кнопок существующих айтемов
   function initButtons() {
@@ -71,10 +78,11 @@ window.onload = function () {
     function deleteItem() {
       this.parentElement.parentElement.remove();
       let thisInputNumber = this.parentElement.parentElement.querySelector("input").id.slice(-1);
-      
-      deleteFromArr(arrItems, Number(thisInputNumber)-1);
+
+      deleteFromArr(arrItems, Number(thisInputNumber) - 1);
       localStorage.setItem("todo", JSON.stringify(arrItems));
-      
+      outItems();
+
       function deleteFromArr(arr, number) {
         return arr.splice(number, 1)
       }
@@ -82,6 +90,7 @@ window.onload = function () {
 
     function editItem() {
       let input = this.parentElement.parentElement.querySelector("input");
+      let thisInputNumber = input.id.slice(-1);
       let label = this.parentElement.parentElement.querySelector("label");
       let btnSave = this.parentElement.parentElement.querySelector("#btn-save");
       btnSave.style.display = "block";
@@ -96,12 +105,47 @@ window.onload = function () {
         input.setAttribute("type", "checkbox");
         btnSave.style.display = "none";
         btnRed.style.display = "";
+        changeItem(arrItems, Number(thisInputNumber) - 1, input.value);
+        localStorage.setItem("todo", JSON.stringify(arrItems));
       }
       input.setAttribute("type", "text");
 
-      
+      function changeItem(arr, number, str) {
+        return arr[number].todo = str;
+      }
     }
   }
+
+  // Инициализация проверки состояния айтема
+  function checkCondition() {
+      let itemsInList = document.querySelectorAll("li.item > input[type='checkbox']");
+
+      for (let i = 0; i < itemsInList.length; i++) {
+        
+        itemsInList[i].onclick = function () {
+          let input = this;
+          let thisInputNumber = input.id.slice(-1);
+          console.log(thisInputNumber);
+
+          if(input.hasAttribute("checked")) {
+            input.removeAttribute("checked");
+            changeItemCheck(arrItems, Number(thisInputNumber)-1, false);
+            localStorage.setItem("todo", JSON.stringify(arrItems));
+          } else {
+            input.setAttribute("checked", "checked");
+            changeItemCheck(arrItems, Number(thisInputNumber)-1, true);
+            localStorage.setItem("todo", JSON.stringify(arrItems));
+          }
+        }
+
+        function changeItemCheck(arr, number, bool) {
+          arr[number].check = bool;
+        }
+      }
+    }
+  
+
+
   // Инициализация кнопки очистки списка из LocalStorage
   document.getElementById("btn-clear").onclick = function () {
     localStorage.clear();

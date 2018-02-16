@@ -70,6 +70,14 @@ window.onload = function () {
 
     function deleteItem() {
       this.parentElement.parentElement.remove();
+      let thisInputNumber = this.parentElement.parentElement.querySelector("input").id.slice(-1);
+      
+      deleteFromArr(arrItems, Number(thisInputNumber)-1);
+      localStorage.setItem("todo", JSON.stringify(arrItems));
+      
+      function deleteFromArr(arr, number) {
+        return arr.splice(number, 1)
+      }
     }
 
     function editItem() {
@@ -90,6 +98,8 @@ window.onload = function () {
         btnRed.style.display = "";
       }
       input.setAttribute("type", "text");
+
+      
     }
   }
   // Инициализация кнопки очистки списка из LocalStorage

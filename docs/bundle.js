@@ -1,10 +1,4 @@
 (function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(require,module,exports){
-// import { sayHello } from "./greet";
-// function showHello(divName: string, name: string) {
-//     const elt = document.getElementById(divName);
-//     elt.innerText = sayHello(name);
-// }
-// showHello("greeting", "TypeScript");
 window.onload = function () {
     let mainInputVal = document.getElementById("main-input");
     let itemCount = 0;
@@ -59,10 +53,10 @@ window.onload = function () {
             itemList.innerHTML =
                 `<input type="checkbox" id="item-${i}" ${checked}>
         <label for="item-${i}">${arrItems[key].todo}</label>
-        <button id="btn-save">Сохр.</button>
+        <button id="btn-save"></button>
         <div class="buttons">
-          <button id="btn-delete">Удалить</button>
-          <button id="btn-edit">Ред.</button>
+          <button id="btn-delete"></button>
+          <button id="btn-edit"></button>
         </div>`;
             fragment.appendChild(itemList);
         }
@@ -93,7 +87,7 @@ window.onload = function () {
             let thisInputNumber = input.id.slice(-1);
             let label = this.parentElement.parentElement.querySelector("label");
             let btnSave = this.parentElement.parentElement.querySelector("#btn-save");
-            btnSave.style.display = "block";
+            btnSave.style.display = "inline";
             let btnRed = this;
             btnRed.style.display = "none";
             btnSave.onclick = function () {
@@ -101,13 +95,17 @@ window.onload = function () {
                     input.value = label.innerText;
                 }
                 label.innerText = input.value;
+                label.style.display = "inline";
                 input.setAttribute("type", "checkbox");
+                input.classList.remove("edit-input");
                 btnSave.style.display = "none";
                 btnRed.style.display = "";
                 changeItem(arrItems, Number(thisInputNumber) - 1, input.value);
                 localStorage.setItem("todo", JSON.stringify(arrItems));
             };
             input.setAttribute("type", "text");
+            input.classList.add("edit-input");
+            label.style.display = "none";
             function changeItem(arr, number, str) {
                 return arr[number].todo = str;
             }

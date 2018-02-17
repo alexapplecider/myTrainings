@@ -61,10 +61,10 @@ window.onload = function () {
       itemList.innerHTML =
         `<input type="checkbox" id="item-${i}" ${checked}>
         <label for="item-${i}">${arrItems[key].todo}</label>
-        <button id="btn-save">Сохр.</button>
+        <button id="btn-save"></button>
         <div class="buttons">
-          <button id="btn-delete">Удалить</button>
-          <button id="btn-edit">Ред.</button>
+          <button id="btn-delete"></button>
+          <button id="btn-edit"></button>
         </div>`;
       fragment.appendChild(itemList);
     }
@@ -99,7 +99,7 @@ window.onload = function () {
       let thisInputNumber = input.id.slice(-1);
       let label = this.parentElement.parentElement.querySelector("label");
       let btnSave = this.parentElement.parentElement.querySelector("#btn-save");
-      btnSave.style.display = "block";
+      btnSave.style.display = "inline";
       let btnRed = this;
       btnRed.style.display = "none";
 
@@ -108,13 +108,18 @@ window.onload = function () {
           input.value = label.innerText;
         }
         label.innerText = input.value;
+        label.style.display = "inline"; 
         input.setAttribute("type", "checkbox");
+        input.classList.remove("edit-input");        
         btnSave.style.display = "none";
         btnRed.style.display = "";
         changeItem(arrItems, Number(thisInputNumber) - 1, input.value);
         localStorage.setItem("todo", JSON.stringify(arrItems));
       }
       input.setAttribute("type", "text");
+      input.classList.add("edit-input");
+      label.style.display = "none";        
+      
 
       function changeItem(arr: Array<Itemp>, number: number, str: String) {
         return arr[number].todo = str;

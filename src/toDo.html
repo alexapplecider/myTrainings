@@ -1,34 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>ToDo List</title>
   <link rel="stylesheet" href="css/style.css">
+  <script src="js/scripts.js"></script>
 </head>
-
 <body>
   <div class="container">
     <button id="btn-clear">Очистить список</button>
+  <div class="todo-list">
+      
+    <h1>ToDo List</h1>
 
-    <div class="todo-list">
+    <input id="main-input" type="text" placeholder="Just ToDo it!">
+    
+    <button id="btn-ok">OK</button>
 
-      <h1>ToDo List</h1>
-
-      <input id="main-input" type="text" placeholder="Just ToDo it!">
-
-      <button id="btn-ok">OK</button>
-
-      <ol class="item-list">
-      </ol>
-
-    </div>
+    <ol class="item-list">
+    </ol>
 
   </div>
 
-  <script src="bundle.js"></script>
+</div>
 </body>
-
 </html>

@@ -64,7 +64,7 @@ window.onload = function () {
         <button id="btn-save"></button>
         <div class="buttons">
         <button id="btn-edit"></button>
-          <button id="btn-delete"></button>
+        <button id="btn-delete"></button>
         </div>`;
       fragment.appendChild(itemList);
     }

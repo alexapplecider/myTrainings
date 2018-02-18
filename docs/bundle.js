@@ -55,8 +55,8 @@ window.onload = function () {
         <label for="item-${i}">${arrItems[key].todo}</label>
         <button id="btn-save"></button>
         <div class="buttons">
-          <button id="btn-delete"></button>
-          <button id="btn-edit"></button>
+        <button id="btn-edit"></button>
+        <button id="btn-delete"></button>
         </div>`;
             fragment.appendChild(itemList);
         }

@@ -296,8 +296,45 @@ input[type=checkbox]:checked + label::after {
   }
   .item > label {
     width: 54%;
+    padding-left: 33px;
   }
   .item > .buttons {
     width: auto;
+  }
+
+  .edit-input {
+    width: 65%;
+    padding-left: 12px;
+    padding-right: 3px;
+    font-size: 14px;
+    line-height: 24px;
+  }
+  #btn-save {
+    top: 9px;
+    right: 44px;
+    margin: 0;    
+  }
+  #btn-save::before {
+    top: 11px;
+    left: 18px;
+  }
+
+  .item {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .item > label::before {
+    top: 0px;
+    left: 0;
+    content: "";
+    width: 18px;
+    height: 18px;
+  }
+  input[type=checkbox]:checked + label::after {
+    top: 2px;
+    left: 7px;
+    content: "";
+    width: 2px;
+    height: 8px;
   }
 }

@@ -104,6 +104,7 @@ window.onload = function () {
                 localStorage.setItem("todo", JSON.stringify(arrItems));
             };
             input.setAttribute("type", "text");
+            input.value = label.innerText;
             input.classList.add("edit-input");
             label.style.display = "none";
             function changeItem(arr, number, str) {

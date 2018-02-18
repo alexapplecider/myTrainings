@@ -63,8 +63,8 @@ window.onload = function () {
         <label for="item-${i}">${arrItems[key].todo}</label>
         <button id="btn-save"></button>
         <div class="buttons">
+        <button id="btn-edit"></button>
           <button id="btn-delete"></button>
-          <button id="btn-edit"></button>
         </div>`;
       fragment.appendChild(itemList);
     }
@@ -99,6 +99,7 @@ window.onload = function () {
       let thisInputNumber = input.id.slice(-1);
       let label = this.parentElement.parentElement.querySelector("label");
       let btnSave = this.parentElement.parentElement.querySelector("#btn-save");
+
       btnSave.style.display = "inline";
       let btnRed = this;
       btnRed.style.display = "none";
@@ -117,6 +118,7 @@ window.onload = function () {
         localStorage.setItem("todo", JSON.stringify(arrItems));
       }
       input.setAttribute("type", "text");
+      input.value = label.innerText;
       input.classList.add("edit-input");
       label.style.display = "none";        
       

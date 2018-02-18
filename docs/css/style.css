@@ -115,6 +115,7 @@ h1 {
   line-height: 24px;
   word-wrap: break-word;
   opacity: 0.5;
+  cursor: pointer;
 }
 
 .item > label::before {
@@ -285,6 +286,7 @@ input[type=checkbox]:checked + label::after {
 @media(max-width: 460px) {
   #main-input {
     width: 90%;
+    line-height: 36px;
   }
   #btn-ok {
     margin-top: 10px;

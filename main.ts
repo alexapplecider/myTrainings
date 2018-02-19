@@ -1,15 +1,14 @@
 window.onload = function () {
 
-  let mainInputVal = <HTMLInputElement>document.getElementById("main-input");
-  let itemCount = 0;
+  let mainInputVal = < HTMLInputElement > document.getElementById("main-input");
   let ol = document.querySelector(".item-list");
 
   interface Itemp {
     todo: String;
     check: Boolean;
-  }  
+  }
 
-  let arrItems: Array<Itemp> = [];
+  let arrItems: Array < Itemp > = [];
 
   if (localStorage.getItem("todo") !== undefined) {
     arrItems = JSON.parse(localStorage.getItem("todo")) || [];
@@ -35,8 +34,7 @@ window.onload = function () {
   }
   // Добавляем информацию об айтеме в массив, массив отправляем в LocalStorage 
   function addTask(text: String) {
-    itemCount++;
-    var temp: Itemp = {
+    let temp: Itemp = {
       todo: text,
       check: false
     }
@@ -76,10 +74,11 @@ window.onload = function () {
   // Инициализация обработчиков кнопок существующих айтемов
   function initButtons() {
     let items = document.querySelectorAll("li.item");
-    for (let i = 0; i < items.length; i++) {
+
+    items.forEach(function (curr, i) {
       (items[i].querySelector("#btn-delete") as HTMLElement).onclick = deleteItem;
       (items[i].querySelector("#btn-edit") as HTMLElement).onclick = editItem;
-    }
+    });
 
     function deleteItem() {
       this.parentElement.parentElement.remove();
@@ -89,7 +88,7 @@ window.onload = function () {
       localStorage.setItem("todo", JSON.stringify(arrItems));
       outItems();
 
-      function deleteFromArr(arr: Array<Itemp>, number: number) {
+      function deleteFromArr(arr: Array < Itemp > , number: number) {
         return arr.splice(number, 1)
       }
     }
@@ -109,9 +108,9 @@ window.onload = function () {
           input.value = label.innerText;
         }
         label.innerText = input.value;
-        label.style.display = "inline"; 
+        label.style.display = "inline";
         input.setAttribute("type", "checkbox");
-        input.classList.remove("edit-input");        
+        input.classList.remove("edit-input");
         btnSave.style.display = "none";
         btnRed.style.display = "";
         changeItem(arrItems, Number(thisInputNumber) - 1, input.value);
@@ -120,10 +119,10 @@ window.onload = function () {
       input.setAttribute("type", "text");
       input.value = label.innerText;
       input.classList.add("edit-input");
-      label.style.display = "none";        
-      
+      label.style.display = "none";
 
-      function changeItem(arr: Array<Itemp>, number: number, str: String) {
+
+      function changeItem(arr: Array < Itemp > , number: number, str: String) {
         return arr[number].todo = str;
       }
     }
@@ -132,7 +131,7 @@ window.onload = function () {
   function checkCondition() {
     let itemsInList = document.querySelectorAll("li.item > input[type='checkbox']");
 
-    for (let i = 0; i < itemsInList.length; i++) {
+    itemsInList.forEach(function (curr, i) {
       (itemsInList[i] as HTMLInputElement).onclick = function () {
         let input = this;
         let thisInputNumber = input.id.slice(-1);
@@ -152,17 +151,16 @@ window.onload = function () {
           localStorage.setItem("todo", JSON.stringify(arrItems));
         }
       }
+    });
 
-      function changeItemCheck(arr: Array<Itemp>, number: number, bool: Boolean) {
-        arr[number].check = bool;
-      }
+    function changeItemCheck(arr: Array < Itemp > , number: number, bool: Boolean) {
+      arr[number].check = bool;
     }
   }
   // Инициализация кнопки очистки списка из LocalStorage
   document.getElementById("btn-clear").onclick = function () {
     localStorage.clear();
     ol.innerHTML = "";
-    itemCount = 0;
     arrItems = [];
   }
 

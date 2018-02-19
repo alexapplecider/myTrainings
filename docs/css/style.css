@@ -40,9 +40,7 @@ h1 {
 
 #main-input {
   border: 1px solid black;
-  /* width: 68%; */
   width: calc(100% - 173px);
-  /* min-width: 420px; */
   min-width: 226px;
   padding-left: 25px;
   border-radius: 30px;
@@ -130,7 +128,6 @@ h1 {
 }
 .item > .buttons {
   position: absolute;
-  /* width: 120px; */
   width: auto;
   top: 16px;
   right: 10px;
